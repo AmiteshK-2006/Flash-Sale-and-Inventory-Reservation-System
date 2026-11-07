@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefWidth="1100" prefHeight="760" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashsale.client.controllers.MainController">
+    <!-- Top Minimalist Navigation (Like Reference HOME DECOR) -->
+    <top>
+        <VBox>
+            <HBox alignment="CENTER" styleClass="nav-header">
+                <!-- Left Nav Links Removed -->
+                
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Center Minimalist Brand Logo -->
+                <Label text="FLASH SALE" styleClass="brand-logo" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Right System Status Badges -->
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Label fx:id="userBadgeLabel" text="👤 Admin" styleClass="user-pill" />
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Main Tab Content -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">
+            <!-- TAB 1: LUXURY SHOPPER STOREFRONT -->
+            <Tab text="Shop &amp; Live Drops">
+                <HBox spacing="28" style="-fx-padding: 24px 36px;">
+                    <!-- LEFT & CENTER: Product Showcase (Matches Left of Reference) -->
+                    <ScrollPane fitToWidth="true" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+                        <VBox spacing="24">
+                            <HBox spacing="32">
+                                <!-- Product Hero Visual Card -->
+                                <VBox prefWidth="360" minWidth="340" spacing="16">
+                                    <VBox prefHeight="380" styleClass="product-hero-card">
+                                        <Region VBox.vgrow="ALWAYS" />
+                                        <Label text="⚡" styleClass="hero-product-icon" />
+                                        <Label fx:id="heroProductSubtitle" text="PREMIUM LIMITED DROP" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #9CA3AF; -fx-letter-spacing: 2px;" />
+                                        <Region VBox.vgrow="ALWAYS" />
+                                    </VBox>
+
+                                    <!-- Switchable Drops Selector (Clean List without 1990s empty rows) -->
+                                    <VBox spacing="8">
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label text="Active Drops:" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Button text="↻ Refresh" onAction="#handleRefreshSales" style="-fx-background-color: transparent; -fx-text-fill: #059669; -fx-font-size: 12px; -fx-font-weight: bold; -fx-cursor: hand;" />
+                                        </HBox>
+                                        <ListView fx:id="salesListView" prefHeight="95" styleClass="list-view" />
+                                    </VBox>
+                                </VBox>
+
+                                <!-- Product Details & Purchase Form -->
+                                <VBox spacing="14" HBox.hgrow="ALWAYS">
+                                    <HBox spacing="10" alignment="CENTER_LEFT">
+                                        <Label text="LIVE DROP" styleClass="badge-new" />
+                                    </HBox>
+
+                                    <Label fx:id="selectedSaleTitleLabel" text="Limited Edition Gaming Console" styleClass="product-title" wrapText="true" />
+
+                                    <HBox spacing="12" alignment="BASELINE_LEFT">
+                                        <Label fx:id="selectedSalePriceLabel" text="₹49,999.00" styleClass="product-price" />
+                                    </HBox>
+
+                                    <!-- Live Inventory Conservation Progress Bar -->
+                                    <VBox spacing="6" styleClass="stock-bar-container">
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label text="LIVE INVENTORY:" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #71717A;" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label fx:id="remainingStockBadge" text="14 units available" style="-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #DC2626;" />
+                                        </HBox>
+                                        <ProgressBar fx:id="stockLevelProgressBar" progress="0.14" maxWidth="Infinity" styleClass="stock-progress" prefHeight="8" />
+                                        <Label fx:id="stockBreakdownLabel" text="Total: 100 | Sold: 86 | Reserved: 0" style="-fx-font-size: 11px; -fx-text-fill: #A1A1AA;" />
+                                    </VBox>
+
+
+
+                                    <!-- Minimalist Stepper & Buy Action Buttons (Exact Match to Reference Mockup) -->
+                                    <HBox spacing="16" alignment="CENTER_LEFT" style="-fx-padding: 8px 0;">
+                                        <!-- Pill Stepper ( - 1 + ) -->
+                                        <HBox alignment="CENTER" styleClass="stepper-pill">
+                                            <Button text="-" onAction="#handleDecrementQuantity" styleClass="btn-stepper" />
+                                            <TextField fx:id="quantityField" text="1" prefWidth="42" styleClass="input-stepper" />
+                                            <Button text="+" onAction="#handleIncrementQuantity" styleClass="btn-stepper" />
+                                        </HBox>
+
+                                        <!-- Buy Now / Reserve Pill Button -->
+                                        <Button fx:id="reserveButton" text="⚡ Reserve Now (Lock Stock)" onAction="#handleReserveStock" styleClass="btn-pill-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                                    </HBox>
+
+
+                                </VBox>
+                            </HBox>
+
+
+                        </VBox>
+                    </ScrollPane>
+
+                    <!-- RIGHT COLUMN: Slide-Out Cart & Hold Drawer (Exact Match to Reference Cart Drawer) -->
+                    <VBox prefWidth="350" minWidth="330" spacing="18" styleClass="cart-drawer">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Cart &amp; Hold" styleClass="cart-title" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="⚡ Active Drop" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                        </HBox>
+
+                        <!-- Amber Hold Notice (Like reference 'It's in the bag. We'll hold it for an hour') -->
+                        <VBox spacing="8" styleClass="hold-banner">
+                            <Label text="⏳ It's in the bag! We'll hold it for 60 seconds." style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #92400E;" wrapText="true" />
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Hold Window:" style="-fx-font-size: 11px; -fx-text-fill: #B45309;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="countdownTimerLabel" text="60s" styleClass="countdown-timer-large" />
+                            </HBox>
+                            <ProgressBar fx:id="countdownProgressBar" progress="1.0" maxWidth="Infinity" prefHeight="6" style="-fx-accent: #DC2626;" />
+                        </VBox>
+
+                        <!-- Cart Reserved Item Card -->
+                        <VBox spacing="8" styleClass="cart-item-card">
+                            <Label fx:id="cartItemTitle" text="No item reserved yet" style="-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #18181B;" wrapText="true" />
+                            <Label fx:id="reservationInfoLabel" text="Click 'Reserve Now' to lock stock." style="-fx-font-size: 11px; -fx-text-fill: #71717A;" wrapText="true" />
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS" />
+
+                        <!-- Total & Checkout Action -->
+                        <VBox spacing="14">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Total" style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #18181B;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="cartTotalLabel" text="₹0.00" style="-fx-font-size: 20px; -fx-font-weight: 800; -fx-text-fill: #18181B;" />
+                            </HBox>
+
+                            <Button fx:id="payButton" text="Complete Checkout" onAction="#handlePayOrder" maxWidth="Infinity" disable="true" styleClass="btn-pill-primary" />
+
+                            <Label fx:id="checkoutResultLabel" text="Ready" style="-fx-font-size: 12px; -fx-text-fill: #71717A; -fx-alignment: center;" wrapText="true" maxWidth="Infinity" />
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </Tab>
+
+            <!-- TAB 2: CONCURRENCY BENCHMARK STUDIO -->
+            <Tab text="Concurrency Studio">
+                <VBox spacing="20" style="-fx-padding: 24px 36px;">
+                    <!-- Configuration Bar -->
+                    <HBox spacing="18" alignment="CENTER_LEFT" styleClass="sim-card">
+                        <VBox spacing="4">
+                            <Label text="Sale ID:" style="sim-stat-title" />
+                            <TextField fx:id="simSaleIdField" text="1" prefWidth="70" />
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Concurrent Users:" style="sim-stat-title" />
+                            <TextField fx:id="simUsersField" text="1000" prefWidth="120" />
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Total Attempts:" style="sim-stat-title" />
+                            <TextField fx:id="simAttemptsField" text="1000" prefWidth="120" />
+                        </VBox>
+                        <VBox spacing="4" prefWidth="200">
+                            <HBox>
+                                <Label text="Payment Success: " style="sim-stat-title" />
+                                <Label fx:id="simRateLabel" text="100%" style="-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: #059669;" />
+                            </HBox>
+                            <Slider fx:id="simRateSlider" min="0" max="100" value="100" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="runSimButton" text="🔥 Launch Burst Simulation" onAction="#handleRunSimulation" styleClass="btn-pill-primary" />
+                    </HBox>
+
+                    <!-- Real-Time Metrics Grid -->
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="20" />
+                            <ColumnConstraints percentWidth="20" />
+                            <ColumnConstraints percentWidth="20" />
+                            <ColumnConstraints percentWidth="20" />
+                            <ColumnConstraints percentWidth="20" />
+                        </columnConstraints>
+                        
+                        <VBox GridPane.columnIndex="0" styleClass="sim-stat-box">
+                            <Label text="TOTAL REQUESTS" styleClass="sim-stat-title" />
+                            <Label fx:id="simTotalLabel" text="--" styleClass="sim-stat-num" />
+                        </VBox>
+                        
+                        <VBox GridPane.columnIndex="1" styleClass="sim-stat-box" style="-fx-border-color: #10B981; -fx-border-width: 0 0 4 0;">
+                            <Label text="SUCCESS (ADMITTED)" styleClass="sim-stat-title" style="-fx-text-fill: #059669;" />
+                            <Label fx:id="simSuccessLabel" text="--" styleClass="sim-stat-num" style="-fx-text-fill: #059669;" />
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="2" styleClass="sim-stat-box" style="-fx-border-color: #EF4444; -fx-border-width: 0 0 4 0;">
+                            <Label text="REJECTED (NO STOCK)" styleClass="sim-stat-title" style="-fx-text-fill: #DC2626;" />
+                            <Label fx:id="simRejectedLabel" text="--" styleClass="sim-stat-num" style="-fx-text-fill: #DC2626;" />
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="3" styleClass="sim-stat-box">
+                            <Label text="THROUGHPUT (REQ/S)" styleClass="sim-stat-title" />
+                            <Label fx:id="simThroughputLabel" text="--" styleClass="sim-stat-num" style="-fx-text-fill: #2563EB;" />
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="4" styleClass="sim-stat-box">
+                            <Label text="EXECUTION TIME" styleClass="sim-stat-title" />
+                            <Label fx:id="simDurationLabel" text="--" styleClass="sim-stat-num" />
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Real-Time Activity Terminal -->
+                    <VBox VBox.vgrow="ALWAYS" styleClass="sim-terminal" spacing="8">
+                        <Label text="Distributed Transaction &amp; Invariant Log" style="-fx-text-fill: #F59E0B; -fx-font-size: 12px; -fx-font-weight: 700;" />
+                        <TextArea fx:id="simLogArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" styleClass="sim-terminal-text" />
+                    </VBox>
+                </VBox>
+            </Tab>
+
+            <!-- TAB 3: ADMIN & INVENTORY -->
+            <Tab text="Admin &amp; Inventory">
+                <VBox spacing="20" style="-fx-padding: 24px 36px;">
+                    <!-- Product Form -->
+                    <HBox spacing="18" alignment="CENTER_LEFT" styleClass="sim-card">
+                        <Label text="New Product" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <VBox spacing="4">
+                            <Label text="Name:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newProductNameField" promptText="Name" />
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Desc:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newProductDescField" promptText="Description" />
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Price:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newProductPriceField" promptText="Price (e.g. 99.99)" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="Add Product" onAction="#handleAddProduct" styleClass="btn-pill-primary" />
+                    </HBox>
+                    <Label fx:id="productResultLabel" text="" style="-fx-text-fill: #059669;" />
+
+                    <!-- Flash Sale Form -->
+                    <HBox spacing="18" alignment="CENTER_LEFT" styleClass="sim-card">
+                        <Label text="New Flash Sale" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <VBox spacing="4">
+                            <Label text="Product ID:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newSaleProductIdField" promptText="Product ID" prefWidth="80"/>
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Stock:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newSaleStockField" promptText="Stock Quantity" prefWidth="100"/>
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Max/User:" styleClass="sim-stat-title"/>
+                            <TextField fx:id="newSaleMaxQtyField" promptText="e.g. 1" prefWidth="70"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="Create Sale" onAction="#handleAddSale" styleClass="btn-pill-primary" />
+                    </HBox>
+                    <Label fx:id="saleResultLabel" text="" style="-fx-text-fill: #059669;" />
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

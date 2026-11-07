@@ -1,0 +1,360 @@
+/* Minimalist Luxury E-Commerce Design System (Inspired by Modern Scandinavian / Apple Storefronts) */
+
+.root {
+    -fx-font-family: -apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -fx-background-color: #F8F8F8;
+    -fx-text-fill: #18181B;
+}
+
+/* Navigation Header */
+.nav-header {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 18px 40px;
+    -fx-border-color: #E4E4E7;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.nav-link {
+    -fx-text-fill: #71717A;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+.brand-logo {
+    -fx-font-family: "Didot", "Playfair Display", "Georgia", serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #18181B;
+    -fx-letter-spacing: 2px;
+}
+
+.status-pill {
+    -fx-background-color: #ECFDF5;
+    -fx-text-fill: #059669;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 5px 12px;
+    -fx-background-radius: 9999px;
+    -fx-border-color: #A7F3D0;
+    -fx-border-radius: 9999px;
+    -fx-border-width: 1px;
+}
+
+.user-pill {
+    -fx-background-color: #F4F4F5;
+    -fx-text-fill: #52525B;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 5px 14px;
+    -fx-background-radius: 9999px;
+}
+
+/* Tabs */
+.tab-pane {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 40px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E4E4E7;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #FFFFFF;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 12px 28px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+}
+
+.tab-pane .tab:selected {
+    -fx-border-color: #18181B;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #71717A;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #18181B;
+    -fx-font-weight: 700;
+}
+
+/* Luxury Product Visual Card */
+.product-hero-card {
+    -fx-background-color: #F4F1EA;
+    -fx-background-radius: 16px;
+    -fx-padding: 30px;
+    -fx-alignment: center;
+    -fx-border-color: #E8E2D5;
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+}
+
+.hero-product-icon {
+    -fx-font-size: 72px;
+}
+
+/* Product Info */
+.badge-new {
+    -fx-background-color: #18181B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 4px 10px;
+    -fx-background-radius: 4px;
+}
+
+.product-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #18181B;
+    -fx-letter-spacing: -0.5px;
+}
+
+.product-price {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #18181B;
+}
+
+.product-old-price {
+    -fx-font-size: 15px;
+    -fx-text-fill: #A1A1AA;
+    -fx-strikethrough: true;
+}
+
+.product-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #71717A;
+    -fx-line-spacing: 4px;
+}
+
+/* Stock Progress Bar */
+.stock-bar-container {
+    -fx-background-color: #F4F4F5;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.stock-progress .track {
+    -fx-background-color: #E4E4E7;
+    -fx-background-radius: 9999px;
+}
+
+.stock-progress .bar {
+    -fx-background-color: #10B981;
+    -fx-background-radius: 9999px;
+    -fx-padding: 4px;
+}
+
+/* Pill Stepper ( - 1 + ) */
+.stepper-pill {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #D4D4D8;
+    -fx-border-radius: 9999px;
+    -fx-background-radius: 9999px;
+    -fx-padding: 4px 12px;
+    -fx-border-width: 1px;
+}
+
+.btn-stepper {
+    -fx-background-color: transparent;
+    -fx-text-fill: #18181B;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+    -fx-padding: 4px 8px;
+}
+
+.btn-stepper:hover {
+    -fx-text-fill: #059669;
+}
+
+.input-stepper {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #18181B;
+}
+
+/* Modern Pill Buttons */
+.btn-pill-primary {
+    -fx-background-color: #18181B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-padding: 14px 28px;
+    -fx-background-radius: 9999px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.12), 10, 0, 0, 4);
+}
+
+.btn-pill-primary:hover {
+    -fx-background-color: #27272A;
+}
+
+.btn-pill-outline {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #18181B;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-padding: 14px 28px;
+    -fx-background-radius: 9999px;
+    -fx-border-color: #18181B;
+    -fx-border-radius: 9999px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+}
+
+.btn-pill-outline:hover {
+    -fx-background-color: #F4F4F5;
+}
+
+/* Feature Strip (Yellow Banner in reference) */
+.feature-strip {
+    -fx-background-color: #FEF08A;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px 20px;
+}
+
+.feature-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #713F12;
+}
+
+/* Cart / Hold Drawer (Right Column) */
+.cart-drawer {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 24px;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 14, 0, 0, 4);
+}
+
+.cart-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #18181B;
+}
+
+.hold-banner {
+    -fx-background-color: #FEF3C7;
+    -fx-text-fill: #92400E;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 8px;
+}
+
+.countdown-timer-large {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #DC2626;
+}
+
+.cart-item-card {
+    -fx-background-color: #FAFAFA;
+    -fx-padding: 14px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+/* Hide empty ListView cells completely to avoid 1990s table stripes */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 4px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 12px 14px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #18181B;
+    -fx-background-radius: 8px;
+}
+
+.list-cell:empty {
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #F4F4F5;
+    -fx-cursor: hand;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #18181B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 700;
+}
+
+/* Simulator Modern Dark Cards */
+.sim-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 14px;
+    -fx-padding: 22px;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.03), 10, 0, 0, 2);
+}
+
+.sim-stat-box {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+    -fx-alignment: center;
+    -fx-border-color: #E4E4E7;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+}
+
+.sim-stat-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #71717A;
+}
+
+.sim-stat-num {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #18181B;
+}
+
+.sim-terminal {
+    -fx-background-color: #18181B;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+}
+
+.sim-terminal-text {
+    -fx-control-inner-background: #18181B;
+    -fx-text-fill: #34D399;
+    -fx-font-family: "SF Mono", "Fira Code", Menlo, monospace;
+    -fx-font-size: 12px;
+    -fx-border-width: 0;
+}

@@ -1,0 +1,57 @@
+# Compiled Java / Maven target directories
+target/
+**/target/
+*.class
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+# Keep Maven Wrapper JAR so ./mvnw works on fresh clones
+!.mvn/wrapper/maven-wrapper.jar
+!**/maven-wrapper.jar
+
+# Environment variables & secrets
+.env
+*.env
+!.env.example
+
+# macOS metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows metadata
+Thumbs.db
+ehthumbs.db
+
+# Logs and crash dumps
+*.log
+logs/
+hs_err_pid*
+replay_pid*
+
+# IDEs and Editors
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+*.sublime-project
+*.sublime-workspace
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
