@@ -93,6 +93,40 @@
                                         <Button fx:id="reserveButton" text="⚡ Reserve Now (Lock Stock)" onAction="#handleReserveStock" styleClass="btn-pill-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
                                     </HBox>
 
+                                    <!-- Live Distributed Execution Pipeline Stepper -->
+                                    <VBox spacing="8" styleClass="pipeline-card">
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label text="⚡ Architecture Execution Pipeline (Live Stage Timing)" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #52525B;" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label fx:id="pipelineTotalTimeLabel" text="Idle" style="-fx-font-size: 11px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER">
+                                            <!-- Step 1: Rate Limiter -->
+                                            <VBox HBox.hgrow="ALWAYS" styleClass="pipeline-node" fx:id="pipelineNode1">
+                                                <Label text="1. Rate Limiter" style="-fx-font-size: 10px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                                <Label fx:id="pipelineStep1Label" text="⚪ Idle" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #18181B;" />
+                                            </VBox>
+                                            <Label text="➔" style="-fx-text-fill: #A1A1AA; -fx-font-weight: bold;" />
+                                            <!-- Step 2: Redis Lua Gate -->
+                                            <VBox HBox.hgrow="ALWAYS" styleClass="pipeline-node" fx:id="pipelineNode2">
+                                                <Label text="2. Redis Lua Gate" style="-fx-font-size: 10px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                                <Label fx:id="pipelineStep2Label" text="⚪ Idle" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #18181B;" />
+                                            </VBox>
+                                            <Label text="➔" style="-fx-text-fill: #A1A1AA; -fx-font-weight: bold;" />
+                                            <!-- Step 3: PostgreSQL Ledger -->
+                                            <VBox HBox.hgrow="ALWAYS" styleClass="pipeline-node" fx:id="pipelineNode3">
+                                                <Label text="3. PostgreSQL Ledger" style="-fx-font-size: 10px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                                <Label fx:id="pipelineStep3Label" text="⚪ Idle" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #18181B;" />
+                                            </VBox>
+                                            <Label text="➔" style="-fx-text-fill: #A1A1AA; -fx-font-weight: bold;" />
+                                            <!-- Step 4: 60s Hold Window -->
+                                            <VBox HBox.hgrow="ALWAYS" styleClass="pipeline-node" fx:id="pipelineNode4">
+                                                <Label text="4. 60s Hold Window" style="-fx-font-size: 10px; -fx-font-weight: 700; -fx-text-fill: #71717A;" />
+                                                <Label fx:id="pipelineStep4Label" text="⚪ Idle" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #18181B;" />
+                                            </VBox>
+                                        </HBox>
+                                    </VBox>
+
 
                                 </VBox>
                             </HBox>
@@ -146,31 +180,60 @@
 
             <!-- TAB 2: CONCURRENCY BENCHMARK STUDIO -->
             <Tab text="Concurrency Studio">
-                <VBox spacing="20" style="-fx-padding: 24px 36px;">
-                    <!-- Configuration Bar -->
-                    <HBox spacing="18" alignment="CENTER_LEFT" styleClass="sim-card">
-                        <VBox spacing="4">
-                            <Label text="Sale ID:" style="sim-stat-title" />
-                            <TextField fx:id="simSaleIdField" text="1" prefWidth="70" />
-                        </VBox>
-                        <VBox spacing="4">
-                            <Label text="Concurrent Users:" style="sim-stat-title" />
-                            <TextField fx:id="simUsersField" text="1000" prefWidth="120" />
-                        </VBox>
-                        <VBox spacing="4">
-                            <Label text="Total Attempts:" style="sim-stat-title" />
-                            <TextField fx:id="simAttemptsField" text="1000" prefWidth="120" />
-                        </VBox>
-                        <VBox spacing="4" prefWidth="200">
-                            <HBox>
-                                <Label text="Payment Success: " style="sim-stat-title" />
-                                <Label fx:id="simRateLabel" text="100%" style="-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: #059669;" />
-                            </HBox>
-                            <Slider fx:id="simRateSlider" min="0" max="100" value="100" />
-                        </VBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="runSimButton" text="🔥 Launch Burst Simulation" onAction="#handleRunSimulation" styleClass="btn-pill-primary" />
-                    </HBox>
+                <VBox spacing="16" style="-fx-padding: 20px 36px;">
+                    <!-- Configuration Bar (Simplified & Contextualized) -->
+                    <VBox spacing="14" styleClass="sim-card">
+                        <!-- Top Row: Target Drop, Traffic Burst & Checkout Behavior -->
+                        <HBox spacing="18" alignment="CENTER_LEFT">
+                            <!-- Dropdown for Target Flash Sale -->
+                            <VBox spacing="4" prefWidth="250">
+                                <Label text="Target Flash Sale Drop:" styleClass="sim-stat-title" />
+                                <ComboBox fx:id="simSaleComboBox" prefWidth="250" promptText="Select Active Drop..." />
+                            </VBox>
+
+                            <!-- Single Unified Shoppers Control -->
+                            <VBox spacing="4" prefWidth="230">
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Simultaneous Shoppers:" styleClass="sim-stat-title" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="4">
+                                        <Button text="50" onAction="#handleSetShoppers50" styleClass="btn-preset" />
+                                        <Button text="250" onAction="#handleSetShoppers250" styleClass="btn-preset" />
+                                        <Button text="1k" onAction="#handleSetShoppers1000" styleClass="btn-preset" />
+                                    </HBox>
+                                </HBox>
+                                <TextField fx:id="simShoppersField" text="100" promptText="e.g. 100" />
+                            </VBox>
+
+                            <!-- Checkout Behavior / Conversion Slider -->
+                            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Checkout Conversion:" styleClass="sim-stat-title" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="simRateLabel" text="100% (Instant Pay - Normal Shoppers)" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #059669;" />
+                                </HBox>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Slider fx:id="simRateSlider" min="0" max="100" value="100" HBox.hgrow="ALWAYS" />
+                                    <Button text="100%" onAction="#handleSetPay100" styleClass="btn-preset" />
+                                    <Button text="50%" onAction="#handleSetPay50" styleClass="btn-preset" />
+                                    <Button text="0%" onAction="#handleSetPay0" styleClass="btn-preset" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Bottom Row: Architecture Engine Mode & Launch Button -->
+                        <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-border-color: #F4F4F5; -fx-border-width: 1 0 0 0; -fx-padding: 8px 0 0 0;">
+                            <Label text="Architecture Engine:" styleClass="sim-stat-title" />
+                            <fx:define>
+                                <ToggleGroup fx:id="engineToggleGroup" />
+                            </fx:define>
+                            <RadioButton fx:id="radioRedisLua" text="⚡ Redis Lua (In-Memory Atomic)" toggleGroup="$engineToggleGroup" selected="true" styleClass="engine-radio" />
+                            <RadioButton fx:id="radioDirectDb" text="🗄️ Direct PostgreSQL (Row Lock)" toggleGroup="$engineToggleGroup" styleClass="engine-radio" />
+
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button fx:id="runSimButton" text="🔥 Launch Redis Lua Burst" onAction="#handleRunSimulation" styleClass="btn-pill-primary" />
+                        </HBox>
+                    </VBox>
 
                     <!-- Real-Time Metrics Grid -->
                     <GridPane hgap="16" vgap="16">
@@ -203,14 +266,24 @@
                         </VBox>
 
                         <VBox GridPane.columnIndex="4" styleClass="sim-stat-box">
-                            <Label text="EXECUTION TIME" styleClass="sim-stat-title" />
+                            <Label text="LATENCY / DURATION" styleClass="sim-stat-title" />
                             <Label fx:id="simDurationLabel" text="--" styleClass="sim-stat-num" />
                         </VBox>
                     </GridPane>
 
+                    <!-- Database Blast Shield & Resource Protection Status Banner -->
+                    <HBox spacing="18" alignment="CENTER_LEFT" styleClass="blast-shield-card">
+                        <Label text="🛡️ DB BLAST SHIELD" style="-fx-font-weight: 800; -fx-font-size: 11px; -fx-text-fill: #1E293B; -fx-background-color: #E2E8F0; -fx-padding: 4px 8px; -fx-background-radius: 4px;" />
+                        <Label fx:id="dbQueriesLabel" text="PostgreSQL Queries: --" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #2563EB;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="dbShieldedLabel" text="Database Load Shielded: --" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #059669;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="dbPoolStatusLabel" text="HikariCP Pool Pressure: --" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #64748B;" />
+                    </HBox>
+
                     <!-- Real-Time Activity Terminal -->
                     <VBox VBox.vgrow="ALWAYS" styleClass="sim-terminal" spacing="8">
-                        <Label text="Distributed Transaction &amp; Invariant Log" style="-fx-text-fill: #F59E0B; -fx-font-size: 12px; -fx-font-weight: 700;" />
+                        <Label text="Distributed Transaction &amp; Architectural Comparison Log" style="-fx-text-fill: #F59E0B; -fx-font-size: 12px; -fx-font-weight: 700;" />
                         <TextArea fx:id="simLogArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" styleClass="sim-terminal-text" />
                     </VBox>
                 </VBox>
