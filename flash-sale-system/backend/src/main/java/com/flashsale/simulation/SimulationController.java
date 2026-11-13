@@ -16,14 +16,24 @@ public class SimulationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> startSimulation(@RequestBody Map<String, Integer> req) {
+    public ResponseEntity<?> startSimulation(@RequestBody Map<String, Object> req) {
         try {
-            Long saleId = req.get("saleId").longValue();
-            int users = req.getOrDefault("users", 1000);
-            int attempts = req.getOrDefault("attempts", 1000);
-            int successRate = req.getOrDefault("paymentSuccessRate", 90);
-            
-            SimulationRun run = simulatorService.runSimulation(saleId, users, attempts, successRate);
+            Long saleId = Long.valueOf(req.get("saleId").toString());
+            int shoppers = req.containsKey("shoppers") 
+                    ? Integer.parseInt(req.get("shoppers").toString())
+                    : Integer.parseInt(req.getOrDefault("attempts", "1000").toString());
+            int users = req.containsKey("users") 
+                    ? Integer.parseInt(req.get("users").toString()) 
+                    : shoppers;
+            int attempts = req.containsKey("attempts") 
+                    ? Integer.parseInt(req.get("attempts").toString()) 
+                    : shoppers;
+            int successRate = req.containsKey("paymentSuccessRate") 
+                    ? Integer.parseInt(req.get("paymentSuccessRate").toString()) 
+                    : 100;
+            String engine = req.containsKey("engine") ? req.get("engine").toString() : "REDIS_LUA";
+
+            SimulationRun run = simulatorService.runSimulation(saleId, users, attempts, successRate, engine);
             return ResponseEntity.ok(run);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));

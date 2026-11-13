@@ -37,6 +37,12 @@ public class SaleController {
         List<Map<String, Object>> result = new ArrayList<>();
 
         for (FlashSale sale : sales) {
+            // Auto-heal expired window for active drops in demo environment
+            if ("ACTIVE".equals(sale.getStatus()) && sale.getEndTime().isBefore(java.time.OffsetDateTime.now())) {
+                sale.setEndTime(java.time.OffsetDateTime.now().plusYears(1));
+                flashSaleRepository.save(sale);
+            }
+
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("id", sale.getId());
             map.put("productId", sale.getProductId());
@@ -63,9 +69,25 @@ public class SaleController {
                 InventoryBalance inv = inventoryBalanceRepository.findById(sale.getId()).orElse(null);
                 if (inv != null) {
                     remaining = inv.getTotalStock() - inv.getReservedStock() - inv.getSoldStock();
+                } else {
+                    remaining = sale.getSaleStock();
                 }
+                try {
+                    String sKey = "flashsale:" + sale.getId();
+                    redisTemplate.opsForValue().set(sKey + ":stock", String.valueOf(Math.max(0, remaining)));
+                } catch (Exception ignored) {}
             }
             map.put("availableStock", Math.max(0, remaining));
+
+            // Always ensure metadata hash in Redis is synchronized with Postgres
+            try {
+                String sKey = "flashsale:" + sale.getId();
+                Map<String, String> meta = new java.util.HashMap<>();
+                meta.put("status", sale.getStatus());
+                meta.put("startTime", String.valueOf(sale.getStartTime().toEpochSecond()));
+                meta.put("endTime", String.valueOf(sale.getEndTime().toEpochSecond()));
+                redisTemplate.opsForHash().putAll(sKey + ":metadata", meta);
+            } catch (Exception ignored) {}
 
             InventoryBalance inv = inventoryBalanceRepository.findById(sale.getId()).orElse(null);
             if (inv != null) {

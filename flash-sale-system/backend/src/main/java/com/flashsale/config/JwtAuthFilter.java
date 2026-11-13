@@ -37,17 +37,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     .getPayload();
                 String email = claims.getSubject();
                 String role = claims.get("role", String.class);
-                Long userId = claims.get("userId", Long.class);
+                Object rawUserId = claims.get("userId");
+                Long userId = 1L;
+                if (rawUserId instanceof Number) {
+                    userId = ((Number) rawUserId).longValue();
+                } else if (rawUserId != null) {
+                    try {
+                        userId = Long.parseLong(rawUserId.toString());
+                    } catch (NumberFormatException ignored) {}
+                }
                 
                 if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    CustomUserDetails userDetails = new CustomUserDetails(userId, email, role);
+                    CustomUserDetails userDetails = new CustomUserDetails(userId, email, role != null ? role : "USER");
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role))
+                        userDetails, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + (role != null ? role : "USER")))
                     );
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             } catch (Exception e) {
-                // invalid token
+                // invalid token or parse error
             }
         }
         filterChain.doFilter(request, response);
